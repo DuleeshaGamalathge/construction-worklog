@@ -17,11 +17,25 @@ public class WorkEntriesController : ControllerBase
         _context = context;
     }
 
-    // GET: api/workentries
+    // GET: api/workentries/
     [HttpGet]
-    public async Task<IActionResult> GetAll()
-    {
-        var entries = await _context.WorkEntries
+    public async Task<IActionResult> GetAll(
+        [FromQuery] DateTime? from,
+        [FromQuery] DateTime? to
+    ){
+        var query = _context.WorkEntries.AsQueryable();
+
+        if (from.HasValue)
+        {
+            query = query.Where(x => x.Date >= from.Value);
+        }
+
+        if (to.HasValue)
+        {
+            query = query.Where(x => x.Date <= to.Value);
+        }
+
+        var entries = await query
             .OrderByDescending(x => x.Date)
             .ToListAsync();
 

@@ -7,9 +7,11 @@ import { type WorkEntry } from "./types/WorkEntry";
 
 function App() {
   const [entries, setEntries] = useState<WorkEntry[]>([]);
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
 
-  const loadEntries = async () => {
-    const data = await getWorkEntries();
+  const loadEntries = async (fromDate?: string, toDate?: string) => {
+    const data = await getWorkEntries(fromDate, toDate);
     setEntries(data);
   };
 
@@ -32,6 +34,16 @@ function App() {
       <WorkEntryTable
         entries={entries}
         onDelete={handleDelete}
+        from={from}
+        to={to}
+        setFrom={setFrom}
+        setTo={setTo}
+        onFilter={() => loadEntries(from, to)}
+        onClear={() => {
+          setFrom("");
+          setTo("");
+          loadEntries();
+        }}
       />
     </div>
   );

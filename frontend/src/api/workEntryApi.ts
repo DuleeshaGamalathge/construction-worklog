@@ -3,8 +3,13 @@ import { type WorkEntry } from "../types/WorkEntry";
 
 const BASE_URL = "http://localhost:5058/api/workentries";
 
-export const getWorkEntries = async () => {
-    const response = await axios.get(BASE_URL);
+export const getWorkEntries = async (from?: string, to?: string) => {
+    const response = await axios.get(BASE_URL, {
+        params: {
+            from,
+            to
+        }
+    });
     return response.data;
 };
 
