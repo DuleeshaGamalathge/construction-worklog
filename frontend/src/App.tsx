@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import { getWorkEntries, deleteWorkEntry } from "./api/workEntryApi";
 import WorkEntryForm from "./components/WorkEntryForm";
+import WorkEntryTable from "./components/WorkEntryTable";
 import { type WorkEntry } from "./types/WorkEntry";
 
 function App() {
@@ -16,28 +17,22 @@ function App() {
     loadEntries();
   }, []);
 
+  const handleDelete = async (id: number) => {
+    await deleteWorkEntry(id);
+    loadEntries();
+  };
+
+
   return (
     <div>
       <h1>Work Entries</h1>
 
       <WorkEntryForm onSuccess={loadEntries} />
 
-      {entries.map((e) => (
-        <div key={e.id}>
-          {e.date} - {e.workType} - {e.volume} {e.unit} - {e.performer}
-
-          <button
-            onClick={async () => {
-              if (!e.id) return;
-
-              await deleteWorkEntry(e.id);
-              loadEntries(); // refresh list
-            }}
-          >
-            Delete
-          </button>
-        </div>
-      ))}
+      <WorkEntryTable
+        entries={entries}
+        onDelete={handleDelete}
+      />
     </div>
   );
 }
