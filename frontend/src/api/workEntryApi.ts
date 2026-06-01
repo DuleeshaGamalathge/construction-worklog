@@ -12,3 +12,8 @@ export const createWorkEntry = async (entry: WorkEntry) => {
     const response = await axios.post(BASE_URL, entry);
     return response.data;
 };
+
+export const deleteWorkEntry = async (id: number) => {
+    const response = await axios.delete(`${BASE_URL}/${id}`);
+    return response.data;
+};

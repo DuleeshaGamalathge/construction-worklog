@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import { getWorkEntries } from "./api/workEntryApi";
+import { getWorkEntries, deleteWorkEntry } from "./api/workEntryApi";
 import WorkEntryForm from "./components/WorkEntryForm";
 import { type WorkEntry } from "./types/WorkEntry";
 
@@ -25,6 +25,17 @@ function App() {
       {entries.map((e) => (
         <div key={e.id}>
           {e.date} - {e.workType} - {e.volume} {e.unit} - {e.performer}
+
+          <button
+            onClick={async () => {
+              if (!e.id) return;
+
+              await deleteWorkEntry(e.id);
+              loadEntries(); // refresh list
+            }}
+          >
+            Delete
+          </button>
         </div>
       ))}
     </div>
