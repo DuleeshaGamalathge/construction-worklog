@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createWorkEntry } from "../api/workEntryApi";
 
-export default function WorkEntryForm() {
+export default function WorkEntryForm({ onSuccess }: { onSuccess: () => void }) {
     const [date, setDate] = useState("");
     const [workType, setWorkType] = useState("");
     const [volume, setVolume] = useState("");
@@ -18,6 +18,8 @@ export default function WorkEntryForm() {
             unit,
             performer
         });
+
+        onSuccess(); // refresh list
 
         alert("Entry added successfully");
 

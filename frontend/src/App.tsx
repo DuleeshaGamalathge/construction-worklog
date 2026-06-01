@@ -2,25 +2,29 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import { getWorkEntries } from "./api/workEntryApi";
 import WorkEntryForm from "./components/WorkEntryForm";
+import { type WorkEntry } from "./types/WorkEntry";
 
 function App() {
-  const [data, setData] = useState<any[]>([]);
+  const [entries, setEntries] = useState<WorkEntry[]>([]);
+
+  const loadEntries = async () => {
+    const data = await getWorkEntries();
+    setEntries(data);
+  };
 
   useEffect(() => {
-    getWorkEntries()
-      .then(setData)
-      .catch(console.error);
+    loadEntries();
   }, []);
 
   return (
     <div>
       <h1>Work Entries</h1>
 
-      <WorkEntryForm />
+      <WorkEntryForm onSuccess={loadEntries} />
 
-      {data.map((item, index) => (
-        <div key={index}>
-          {item.workType} - {item.volume}
+      {entries.map((e) => (
+        <div key={e.id}>
+          {e.date} - {e.workType} - {e.volume} {e.unit} - {e.performer}
         </div>
       ))}
     </div>
