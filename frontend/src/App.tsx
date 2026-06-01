@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import { getWorkEntries } from "./api/workEntryApi";
+import WorkEntryForm from "./components/WorkEntryForm";
 
 function App() {
   const [data, setData] = useState<any[]>([]);
@@ -14,6 +15,8 @@ function App() {
   return (
     <div>
       <h1>Work Entries</h1>
+
+      <WorkEntryForm />
 
       {data.map((item, index) => (
         <div key={index}>

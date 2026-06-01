@@ -1,0 +1,78 @@
+import { useState } from "react";
+import { createWorkEntry } from "../api/workEntryApi";
+
+export default function WorkEntryForm() {
+    const [date, setDate] = useState("");
+    const [workType, setWorkType] = useState("");
+    const [volume, setVolume] = useState("");
+    const [unit, setUnit] = useState("");
+    const [performer, setPerformer] = useState("");
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        await createWorkEntry({
+            date,
+            workType,
+            volume: Number(volume),
+            unit,
+            performer
+        });
+
+        alert("Entry added successfully");
+
+        setDate("");
+        setWorkType("");
+        setVolume("");
+        setUnit("");
+        setPerformer("");
+    };
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <h2>Add Work Entry</h2>
+
+            <input
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                required
+            /><br />
+            <input
+                type="text"
+                placeholder="Work Type"
+                value={workType}
+                onChange={(e) => setWorkType(e.target.value)}
+                required
+            /> <br />
+
+            <input
+                type="number"
+                placeholder="Volume"
+                value={volume}
+                onChange={(e) => setVolume(e.target.value)}
+                required
+            /> <br />
+
+            <input
+                type="text"
+                placeholder="Unit"
+                value={unit}
+                onChange={(e) => setUnit(e.target.value)}
+                required
+            /> <br />
+
+            <input
+                type="text"
+                placeholder="Performer"
+                value={performer}
+                onChange={(e) => setPerformer(e.target.value)}
+                required
+            /> <br />
+
+            <button type="submit">
+                Save
+            </button>
+        </form>
+    );
+}
