@@ -61,7 +61,9 @@ export default function WorkEntryForm({
 
     return (
         <form onSubmit={handleSubmit}>
-            <h2>Add Work Entry</h2>
+            <h2 className="card-header">
+                {editingEntry ? "Edit Work Entry" : "Add Work Entry"}
+            </h2>
 
             {/* Date */}
             <input
@@ -137,7 +139,7 @@ export default function WorkEntryForm({
                 required
             /> <br />
 
-            <button type="submit">
+            <button type="submit" className="primary-btn">
                 Save
             </button>
         </form>

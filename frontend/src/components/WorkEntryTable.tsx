@@ -30,7 +30,7 @@ export default function WorkEntryTable({
     <div>
         {/* Filter */}
         <div style={{ marginBottom: "20px" }}>
-            <h3>Filter by Date</h3>
+            <h3 className="card-header">Filter by Date</h3>
 
             <input
                 type="date"
@@ -44,7 +44,7 @@ export default function WorkEntryTable({
                 onChange={(e) => setTo(e.target.value)}
             />
 
-            <button onClick={onFilter}>Filter</button>
+            <button className="primary-btn" onClick={onFilter}>Filter</button>
 
             <button onClick={onClear}>Clear</button>
         </div>
@@ -73,6 +73,7 @@ export default function WorkEntryTable({
 
                 <td>
                 <button
+                    className="delete-btn"
                     onClick={() => {
                     if (entry.id) {
                         onDelete(entry.id);
@@ -82,6 +83,7 @@ export default function WorkEntryTable({
                     Delete
                 </button>
                 <button
+                    className="edit-btn"
                     onClick={() => onEdit(entry)}
                 >
                     Edit

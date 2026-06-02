@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import './App.css'
+// import './App.css'
+import './styles/app.css'
 import { getWorkEntries, deleteWorkEntry } from "./api/workEntryApi";
 import WorkEntryForm from "./components/WorkEntryForm";
 import WorkEntryTable from "./components/WorkEntryTable";
@@ -30,30 +31,41 @@ function App() {
   };
 
   return (
-    <div>
-      <h1>Work Entries</h1>
+    <div className='app-container'>
+      <h1 className="page-title">
+        CONSTRUCTION SITE WORK LOG
+      </h1>
 
-      <WorkEntryForm 
-        onSuccess={loadEntries}
-        editingEntry={editingEntry}
-        setEditingEntry={setEditingEntry}
-      />
+      <div className="layout-container">
 
-      <WorkEntryTable
-        entries={entries}
-        onDelete={handleDelete}
-        from={from}
-        to={to}
-        setFrom={setFrom}
-        setTo={setTo}
-        onFilter={() => loadEntries(from, to)}
-        onClear={() => {
-          setFrom("");
-          setTo("");
-          loadEntries();
-        }}
-        onEdit={handleEdit}
-      />
+        <div className="card form-card">
+          <WorkEntryForm 
+            onSuccess={loadEntries}
+            editingEntry={editingEntry}
+            setEditingEntry={setEditingEntry}
+          />
+        </div>
+
+        <div className="card table-card">
+          <WorkEntryTable
+            entries={entries}
+            onDelete={handleDelete}
+            from={from}
+            to={to}
+            setFrom={setFrom}
+            setTo={setTo}
+            onFilter={() => loadEntries(from, to)}
+            onClear={() => {
+              setFrom("");
+              setTo("");
+              loadEntries();
+            }}
+            onEdit={handleEdit}
+          />
+        </div>
+
+      </div>
+
     </div>
   );
 }
