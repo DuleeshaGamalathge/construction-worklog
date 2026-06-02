@@ -24,12 +24,20 @@ function App() {
     loadEntries();
   };
 
+  const [editingEntry, setEditingEntry] = useState<WorkEntry | null>(null);
+  const handleEdit = (entry: WorkEntry) => {
+    setEditingEntry(entry);
+  };
 
   return (
     <div>
       <h1>Work Entries</h1>
 
-      <WorkEntryForm onSuccess={loadEntries} />
+      <WorkEntryForm 
+        onSuccess={loadEntries}
+        editingEntry={editingEntry}
+        setEditingEntry={setEditingEntry}
+      />
 
       <WorkEntryTable
         entries={entries}
@@ -44,6 +52,7 @@ function App() {
           setTo("");
           loadEntries();
         }}
+        onEdit={handleEdit}
       />
     </div>
   );

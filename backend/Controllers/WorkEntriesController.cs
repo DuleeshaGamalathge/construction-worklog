@@ -78,4 +78,24 @@ public class WorkEntriesController : ControllerBase
 
         return Ok(new { message = "Deleted successfully" });
     }
+
+    //PUT
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(int id, WorkEntryDto dto)
+    {
+        var entry = await _context.WorkEntries.FindAsync(id);
+
+        if (entry == null)
+            return NotFound();
+
+        entry.Date = dto.Date;
+        entry.WorkType = dto.WorkType;
+        entry.Volume = dto.Volume;
+        entry.Unit = dto.Unit;
+        entry.Performer = dto.Performer;
+
+        await _context.SaveChangesAsync();
+
+        return Ok(entry);
+    }
 }

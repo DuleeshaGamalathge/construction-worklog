@@ -1,27 +1,30 @@
 import { type WorkEntry } from "../types/WorkEntry";
 
 interface Props {
-  entries: WorkEntry[];
-  onDelete: (id: number) => void;
+    entries: WorkEntry[];
+    onDelete: (id: number) => void;
 
-  from: string;
-  to: string;
-  setFrom: (value: string) => void;
-  setTo: (value: string) => void;
+    from: string;
+    to: string;
+    setFrom: (value: string) => void;
+    setTo: (value: string) => void;
 
-  onFilter: () => void;
-  onClear: () => void;
+    onFilter: () => void;
+    onClear: () => void;
+
+    onEdit: (entry: WorkEntry) => void;
 }
 
 export default function WorkEntryTable({
-  entries,
-  onDelete,
-  from,
-  to,
-  setFrom,
-  setTo,
-  onFilter,
-  onClear
+    entries,
+    onDelete,
+    from,
+    to,
+    setFrom,
+    setTo,
+    onFilter,
+    onClear,
+    onEdit
 }: Props) {
   return (
     <div>
@@ -77,6 +80,11 @@ export default function WorkEntryTable({
                     }}
                 >
                     Delete
+                </button>
+                <button
+                    onClick={() => onEdit(entry)}
+                >
+                    Edit
                 </button>
                 </td>
             </tr>
