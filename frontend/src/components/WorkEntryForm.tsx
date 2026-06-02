@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { createWorkEntry, updateWorkEntry } from "../api/workEntryApi";
 import { type WorkEntry } from "../types/WorkEntry";
+import { WORK_TYPES } from "../constants/workTypes";
 
 interface Props{
     onSuccess: () => void;
@@ -68,13 +69,24 @@ export default function WorkEntryForm({
                 onChange={(e) => setDate(e.target.value)}
                 required
             /><br />
-            <input
-                type="text"
-                placeholder="Work Type"
+            <select
                 value={workType}
                 onChange={(e) => setWorkType(e.target.value)}
                 required
-            /> <br />
+            >
+                <option value="">
+                    Select Work Type
+                </option>
+
+                {WORK_TYPES.map((type) => (
+                    <option
+                        key={type}
+                        value={type}
+                    >
+                        {type}
+                    </option>
+                ))}
+            </select> <br/>
 
             <input
                 type="number"
