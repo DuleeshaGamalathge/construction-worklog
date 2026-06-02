@@ -63,12 +63,17 @@ export default function WorkEntryForm({
         <form onSubmit={handleSubmit}>
             <h2>Add Work Entry</h2>
 
+            {/* Date */}
             <input
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
+                max={new Date().toISOString().split("T")[0]}
                 required
             /><br />
+
+
+            {/* Work Type */}
             <select
                 value={workType}
                 onChange={(e) => setWorkType(e.target.value)}
@@ -88,14 +93,20 @@ export default function WorkEntryForm({
                 ))}
             </select> <br/>
 
+
+            {/* Volume */}
             <input
                 type="number"
+                min="0.01"
+                step="0.01"
                 placeholder="Volume"
                 value={volume}
                 onChange={(e) => setVolume(e.target.value)}
                 required
             /> <br />
 
+
+            {/* Unit */}
             <input
                 type="text"
                 placeholder="Unit"
@@ -104,11 +115,14 @@ export default function WorkEntryForm({
                 required
             /> <br />
 
+
+            {/* Performer */}
             <input
                 type="text"
                 placeholder="Performer"
                 value={performer}
                 onChange={(e) => setPerformer(e.target.value)}
+                minLength={3}
                 required
             /> <br />
 

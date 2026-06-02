@@ -49,6 +49,11 @@ public class WorkEntriesController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
+        if (dto.Date.Date > DateTime.Today)
+        {
+            return BadRequest("Date cannot be in the future.");
+        }
+
         var entry = new WorkEntry
         {
             Date = dto.Date,
@@ -87,6 +92,11 @@ public class WorkEntriesController : ControllerBase
 
         if (entry == null)
             return NotFound();
+
+        if (dto.Date.Date > DateTime.Today)
+        {
+            return BadRequest("Date cannot be in the future.");
+        }
 
         entry.Date = dto.Date;
         entry.WorkType = dto.WorkType;
