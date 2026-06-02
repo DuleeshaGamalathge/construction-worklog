@@ -5,3 +5,11 @@ export const WORK_TYPES = [
     "Rebar Tying",
     "Wall Plastering"
 ];
+
+export const UNITS = [
+    "m3",
+    "m2",
+    "m",
+    "t",
+    "pcs"
+];

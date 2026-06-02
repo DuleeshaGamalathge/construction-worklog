@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { createWorkEntry, updateWorkEntry } from "../api/workEntryApi";
 import { type WorkEntry } from "../types/WorkEntry";
-import { WORK_TYPES } from "../constants/workTypes";
+import { WORK_TYPES, UNITS } from "../constants/workTypes";
 
 interface Props{
     onSuccess: () => void;
@@ -107,13 +107,24 @@ export default function WorkEntryForm({
 
 
             {/* Unit */}
-            <input
-                type="text"
-                placeholder="Unit"
+            <select
                 value={unit}
                 onChange={(e) => setUnit(e.target.value)}
                 required
-            /> <br />
+            >
+                <option value="">
+                    Select Unit
+                </option>
+
+                {UNITS.map((unit) => (
+                    <option
+                        key={unit}
+                        value={unit}
+                    >
+                        {unit}
+                    </option>
+                ))}
+            </select> <br />
 
 
             {/* Performer */}
